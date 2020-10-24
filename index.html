@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Library project</title>
+  </head>
+  <body>
+    <h1>My Library</h1>
+    <aside id="menuWrapper">
+      <button id="newBook">ADD NEW BOOK</button>
+      <div id="menu">
+        <form action="" method="get" class="form" id="form">
+          <div class="form">
+            <label for="title">Enter title: </label>
+            <input type="text" name="title" id="title" required />
+          </div>
+          <div class="form">
+            <label for="title">Enter author: </label>
+            <input type="text" name="author" id="author" required />
+          </div>
+          <div class="form">
+            <label for="pages">Enter number of pages: </label>
+            <input type="number" min="0" name="pages" id="pages" required />
+          </div>
+          <div class="form">
+            <label for="read">Is it read: </label>
+            <input type="checkbox" name="read" id="read" />
+          </div>
+          <div class="form">
+            <!-- <input type="submit" value="ADD" id="addButton"/> -->
+            <button id="addButton">ADD</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+    <section id="shelf"></section>
+    <script src="./script.js"></script>
+  </body>
+</html>

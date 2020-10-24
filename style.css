@@ -1,0 +1,59 @@
+* {
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+
+body {
+   width: 100%; 
+   height: 100%;
+   display:grid;
+   grid-template-columns: 1fr 5fr;
+   grid-template-rows: 1fr auto 1fr;
+   grid-template-areas: 
+   'header header'
+   'menu main'
+   'footer footer';
+}
+
+h1 {
+    grid-area: header;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#newBook {
+    grid-area: menu;
+    width: 70%;
+    height: 30px;
+}
+
+#menu {
+    margin-top: 20px;
+    padding: 20px;
+    grid-area: menu;
+    display: none;
+}
+
+#shelf {
+grid-area: main;
+margin-top: 20px;
+padding: 10px;
+/* background-color: grey; */
+/* border: 20px solid yellow; */
+/* overflow: scroll; */
+width: 80%;
+height: 80%;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+/* grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));  */
+grid-auto-flow: row;
+gap: 10px;
+}
+
+#shelf > div {
+    padding: 10px;
+    background-color: green;
+    height: 200px;
+}
