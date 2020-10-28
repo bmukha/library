@@ -1,6 +1,4 @@
-let myLibrary = JSON.parse(localStorage.getItem("myLib"))[0].title
-  ? JSON.parse(localStorage.getItem("myLib"))
-  : [];
+let myLibrary = JSON.parse(localStorage.getItem("myLib"))[0] ? JSON.parse(localStorage.getItem("myLib")) : [];
 const shelf = document.querySelector("#shelf");
 const addBook = document.querySelector("#addButton");
 const author = document.querySelector("#author");
@@ -47,9 +45,7 @@ function exposeShelf() {
   myLibrary.forEach((item, index) => {
     let newEl = document.createElement("div");
     newEl.data = index;
-    newEl.innerHTML = `<div class="cardElement" id="cardIndex" data="${index}">Index: ${
-      index + 1
-    }</div> <div class="cardElement" id="cardTitle">Title: ${
+    newEl.innerHTML = `<div class="cardElement" id="cardTitle">Title: ${
       item.title
     }</div> <div class="cardElement" id="cardAuthor">Author: ${
       item.author
@@ -57,7 +53,7 @@ function exposeShelf() {
       item.pages
     }</div> <div class="cardElement" id="cardRead">Status: ${
       item.isRead ? "is read" : "not read yet"
-    }</div> <button id="deleteBtn">DELETE</button> <button id="changeStatusBtn">CHANGE STATUS</button>`;
+    }</div> <button id="deleteBtn">X</button>`;
     shelf.appendChild(newEl);
   });
 }
@@ -73,7 +69,7 @@ shelf.addEventListener("click", (e) => {
   if (e.target.id === "deleteBtn") {
     deleteBook(e.target.parentNode.data);
   }
-  if (e.target.id === "changeStatusBtn") {
+  if (e.target.id === "cardRead") {
     shelf.innerHTML = "";
     myLibrary[e.target.parentNode.data].isRead = !myLibrary[
       e.target.parentNode.data
