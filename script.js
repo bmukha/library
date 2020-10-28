@@ -1,4 +1,6 @@
-let myLibrary = [];
+let myLibrary = JSON.parse(localStorage.getItem("myLib"))[0].title
+  ? JSON.parse(localStorage.getItem("myLib"))
+  : [];
 const shelf = document.querySelector("#shelf");
 const addBook = document.querySelector("#addButton");
 const author = document.querySelector("#author");
@@ -15,14 +17,11 @@ newBookBtn.addEventListener("click", () => {
 
 form.addEventListener("submit", (e) => {
   addBookToLibrary(title.value, author.value, pages.value, read.checked);
-  console.table(myLibrary);
-  console.log(read);
   exposeShelf();
   title.value = "";
   author.value = "";
   pages.value = "";
   read.checked = false;
-
   menu.style.display = "none";
   e.preventDefault();
 });
@@ -40,6 +39,7 @@ function Book(title, author, pages, isRead) {
 
 function addBookToLibrary(title, author, pages, isRead) {
   myLibrary.push(new Book(title, author, pages, isRead));
+  localStorage.setItem("myLib", JSON.stringify(myLibrary));
 }
 
 function exposeShelf() {
@@ -47,25 +47,40 @@ function exposeShelf() {
   myLibrary.forEach((item, index) => {
     let newEl = document.createElement("div");
     newEl.data = index;
-    newEl.innerHTML =
-      `<div class="cardElement" id="cardIndex" data="${index}">Index: ${index + 1}</div> <div class="cardElement" id="cardTitle">Title: ${item.title}</div> <div class="cardElement" id="cardAuthor">Author: ${item.author}</div> <div class="cardElement" id="cardPages">Pages: ${item.pages}</div> <div class="cardElement" id="cardRead">Status: ${item.isRead ? "is read" : "not read yet"}</div> <button id="deleteBtn">DELETE</button>`;
+    newEl.innerHTML = `<div class="cardElement" id="cardIndex" data="${index}">Index: ${
+      index + 1
+    }</div> <div class="cardElement" id="cardTitle">Title: ${
+      item.title
+    }</div> <div class="cardElement" id="cardAuthor">Author: ${
+      item.author
+    }</div> <div class="cardElement" id="cardPages">Pages: ${
+      item.pages
+    }</div> <div class="cardElement" id="cardRead">Status: ${
+      item.isRead ? "is read" : "not read yet"
+    }</div> <button id="deleteBtn">DELETE</button> <button id="changeStatusBtn">CHANGE STATUS</button>`;
     shelf.appendChild(newEl);
   });
 }
 
 function deleteBook(index) {
   myLibrary.splice(index, 1);
-  console.table(myLibrary);
+  localStorage.setItem("myLib", JSON.stringify(myLibrary));
   exposeShelf();
 }
 
-shelf.addEventListener('click', (e) => {
-  console.log(e.target.parentNode.data );
+shelf.addEventListener("click", (e) => {
   e.stopPropagation();
-  if (e.target.parentNode.data !== undefined) {
+  if (e.target.id === "deleteBtn") {
     deleteBook(e.target.parentNode.data);
   }
+  if (e.target.id === "changeStatusBtn") {
+    shelf.innerHTML = "";
+    myLibrary[e.target.parentNode.data].isRead = !myLibrary[
+      e.target.parentNode.data
+    ].isRead;
+    localStorage.setItem("myLib", JSON.stringify(myLibrary));
+    exposeShelf();
+  }
 });
-
 
 exposeShelf();
