@@ -1,4 +1,4 @@
-let myLibrary = JSON.parse(localStorage.getItem("myLib"))[0] ? JSON.parse(localStorage.getItem("myLib")) : [];
+let myLibrary = localStorage.getItem("myLib") ? JSON.parse(localStorage.getItem("myLib")) : [];
 const shelf = document.querySelector("#shelf");
 const addBook = document.querySelector("#addButton");
 const author = document.querySelector("#author");
